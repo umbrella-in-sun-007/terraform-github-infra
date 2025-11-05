@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+.pytest_cache/
+.mypy_cache/
+
+# AWS Lambda build artifact(s)
+lambda_function.zip
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+# Keep dependency lock file tracked
+!.terraform.lock.hcl
+
+# LocalStack (local data/volumes)
+.localstack/
+
+# Editors/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

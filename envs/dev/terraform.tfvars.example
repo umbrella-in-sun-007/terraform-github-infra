@@ -1,0 +1,21 @@
+# Development Environment Configuration
+# Copy this file to terraform.tfvars and update with your actual values
+
+# Required: Your Project ID
+project_id = "your-project-id"
+
+# Optional: Override default project name
+project_name = "my-project"
+
+# Optional: Override default region
+region = "us-central1"
+
+# Network Configuration
+public_subnet_cidrs  = ["10.0.1.0/24"]
+private_subnet_cidrs = ["10.0.2.0/24"]
+enable_nat_gateway   = true
+
+# Compute Configuration
+machine_type           = "e2-micro"
+create_instance_group  = false
+create_extra_disks     = false
