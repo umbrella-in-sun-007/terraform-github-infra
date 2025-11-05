@@ -90,6 +90,9 @@ Terraform must know which resources depend on others so it can:
 - Destroy them safely.
 - Avoid race conditions.
 
+> You can visualize dependecies using:  
+> `terraform graph | dot -Tsvg > graph.svg`
+
 ### Implicit dependencies
 If one resource references another's attributes, then Terraform automatically knows it must create the referenced resource first.
 ```hcl
@@ -103,3 +106,33 @@ resource "google_compute_subnetwork" "subnet" {
 }
 ```
 
+### Explicit dependencies
+Sometimes resources do not reference each other directly, but one should still be created after another. In that case you can use the `depends_on` argument.
+```hcl
+resource "google_storage_bucket" "bucket" {
+    name = "my-app-bucket"
+    location = "us"
+}
+
+/*
+A null_resource is a resource type provided by Terraform’s null provider that does not create any real cloud infrastructure.  
+Instead, it exists only to run provisioners or to define dependencies.
+*/
+resource "null_resource" "trigger" {
+  depends_on = [google_storage_bucket.bucket]
+  provisioner "local-exec" {
+    command = "echo 'Bucket created successfully'"
+  }
+}
+```
+
+### Multiple Dependencies
+You have have multiple dependencies:
+```hcl
+depends_on = [
+  google_compute_network.vpc,
+  google_compute_subnetwork.subnet,
+  google_storage_bucket.bucket
+]
+```
+## Providers
