@@ -102,3 +102,4 @@ resource "google_compute_subnetwork" "subnet" {
     network = google_compute_network.vpc.self_link # dependency here
 }
 ```
+
