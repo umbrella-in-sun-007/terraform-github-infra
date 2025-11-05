@@ -1,37 +1,77 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.venv/
-venv/
-.env
-.pytest_cache/
-.mypy_cache/
-
-# AWS Lambda build artifact(s)
-lambda_function.zip
-
-# Terraform
+# ---------------------------------------------------------------------
+# Terraform Core
+# ---------------------------------------------------------------------
+# Local Terraform directories and state files
 .terraform/
-terraform.tfstate
-terraform.tfstate.*
+*.tfstate
+*.tfstate.*
+terraform.tfstate.backup
+.terraform.lock.hcl
+
+# Local variable and secret files
+terraform.tfvars
+*.auto.tfvars
+*.tfvars.json
+
+# Crash logs and debug files
 crash.log
 crash.*.log
-*.tfplan
-*.tfvars
-*.tfvars.json
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
-# Keep dependency lock file tracked
-!.terraform.lock.hcl
 
-# LocalStack (local data/volumes)
-.localstack/
+# ---------------------------------------------------------------------
+# Credentials & Environment Files
+# ---------------------------------------------------------------------
+# Any exported tokens or environment configs
+.env
+.env.*
+*.secret
+*.key
+*.pem
+*.cert
+*.p12
 
-# Editors/OS
+# ---------------------------------------------------------------------
+# IDE & Editor Configurations
+# ---------------------------------------------------------------------
+# VS Code
 .vscode/
+# JetBrains (IntelliJ, PyCharm, etc.)
 .idea/
+# Sublime
+*.sublime-workspace
+*.sublime-project
+# Eclipse
+.project
+.classpath
+.settings/
+
+# ---------------------------------------------------------------------
+# OS Generated Files
+# ---------------------------------------------------------------------
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+# Windows
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+# Linux
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.rej
+
+# ---------------------------------------------------------------------
+# Logs & Misc
+# ---------------------------------------------------------------------
+*.log
+logs/
+*.out
+*.err

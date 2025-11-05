@@ -136,3 +136,11 @@ depends_on = [
 ]
 ```
 ## Providers
+We will learn Providers in an order
+for this project we will learn and use Terraform Github Provider to provision an organization which acts as an umbrella for all the future child projects.
+
+## Next Steps:
+- Learn Docker Provider
+- Learn Kubernetes Provider (MiniKube)
+- Learn AWS Provider (Localstack)
+- Learn GCP Provider
