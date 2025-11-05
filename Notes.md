@@ -35,3 +35,70 @@ block_type "parameter" {
     attrubute2 = Value2
 }
 ```
+Valid block types are:
+locals, variable, output, resource, module, provider
+We'll deep dive in block type later in Notes.
+
+### Data Types
+There are 5 data types in HCL:
+1. String
+2. Number
+3. Boolean
+4. List
+5. Map
+
+```hcl
+block_type {
+  str     = "String"
+  number  = 3
+  boolean = true
+  list    = ["string", 42, true, 3.14, false]
+  my_map = {
+    name     = "John Doe"
+    age      = 43
+    is_admin = true
+    "note"     = "Keys can be quoted or un-quoted"
+  }
+
+  note_of_john = block_type.my_map["note"]
+  age_of_john  = block_type.my_map["age"]
+}
+```
+
+## Conditions
+```hcl
+block_type {
+    attribute1 = var.env == "dev" ? "if true" : "else"
+}
+```
+
+## Functions
+The HCL language includes a number of built-in functions that you can call from within expressions to transform and combine values. The general syntax for function calls is a function name followed by comma-separated arguments in parentheses: [check out](https://developer.hashicorp.com/nomad/docs/reference/hcl2/functions)
+```hcl
+locals {
+    name = "John Doe"
+    cars = ["Audi", "BMW", "Mercedes"]
+    message = "The user ${upper(local.name) likes ${join(",",local.cars)}}"
+}
+# Functions used: upper() and join()
+```
+
+## Resource Dependencies
+A dependency defines the order in which resources are created, updated, or destroyed.
+Terraform must know which resources depend on others so it can:
+- Create them in the right order.
+- Destroy them safely.
+- Avoid race conditions.
+
+### Implicit dependencies
+If one resource references another's attributes, then Terraform automatically knows it must create the referenced resource first.
+```hcl
+resource "google_compute_network" "vpc" {
+    name = "my-vpc"
+}
+
+resource "google_compute_subnetwork" "subnet" {
+    name = "my-subnet"
+    network = google_compute_network.vpc.self_link # dependency here
+}
+```
