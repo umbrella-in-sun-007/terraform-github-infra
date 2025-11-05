@@ -1,29 +1,29 @@
-name: Sync main branch to organization repo
+name: Sync main branch to organization repo (private target)
 
 on:
   push:
     branches:
-      - main  # only trigger on main branch of repo1
+      - main  # Trigger only when main branch is updated
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source repository (repo1)
+      - name: Checkout source repo (repo1)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # get full history
+          fetch-depth: 0  # fetch all history for push
 
-      - name: Set up Git identity
+      - name: Configure Git identity
         run: |
-          git config --global user.name "neerajadhav"
-          git config --global user.email "neerajadhav@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Add organization repo (repo2) as a new remote
+      - name: Add organization repo (repo2) as remote
         run: |
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/umbrella-in-sun-007/terraform-github-infra.git
-          git fetch target
+
 
       - name: Push main branch to organization repo
         run: |
