@@ -2,6 +2,42 @@
 
 Terraform provisions GitHub infrastructure using the **GitHub Provider**. We use HCL (Hashicorp Configuration Language) to define repositories, organization settings, and CI/CD automation.
 
+```mermaid
+flowchart TD;
+    %% === Developer and Terraform ===
+    A["Developer (You)"] -->|Write HCL, Commit & Push| B["Terraform CLI"];
+    B -->|Uses| C["GitHub Provider"];
+    C -->|Interacts via API| D["GitHub API"];
+    D --> E["GitHub Organization"];
+
+    %% === Organization Resources ===
+    subgraph E["GitHub Organization: umbrella-in-sun-007"];
+        R1["Public Repo: org-repo"];
+        R2["Private Repo: personal-repo"];
+        WF["GitHub Actions Workflow: sync-to-org.yml"];
+    end;
+
+    %% === Flows ===
+    A -->|Triggers Workflow on Push| WF;
+    WF -->|Syncs main branch| R1;
+    B -->|Provisions| R1;
+    B -->|Provisions| R2;
+
+    %% === Styling ===
+    classDef dev fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e,stroke-width:1px;
+    classDef tf fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-width:1px;
+    classDef provider fill:#ede9fe,stroke:#7c3aed,color:#312e81,stroke-width:1px;
+    classDef org fill:#ecfdf5,stroke:#16a34a,color:#064e3b,stroke-width:1px;
+    classDef action fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,stroke-width:1px;
+
+    class A dev;
+    class B tf;
+    class C provider;
+    class D,E,R1,R2 org;
+    class WF action;
+
+```
+
 ## What this project does
 
 * Provisions a **private repo** in a personal GitHub account.
