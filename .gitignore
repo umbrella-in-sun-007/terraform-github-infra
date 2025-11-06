@@ -1,0 +1,77 @@
+# ---------------------------------------------------------------------
+# Terraform Core
+# ---------------------------------------------------------------------
+# Local Terraform directories and state files
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfstate.backup
+.terraform.lock.hcl
+
+# Local variable and secret files
+terraform.tfvars
+*.auto.tfvars
+*.tfvars.json
+
+# Crash logs and debug files
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ---------------------------------------------------------------------
+# Credentials & Environment Files
+# ---------------------------------------------------------------------
+# Any exported tokens or environment configs
+.env
+.env.*
+*.secret
+*.key
+*.pem
+*.cert
+*.p12
+
+# ---------------------------------------------------------------------
+# IDE & Editor Configurations
+# ---------------------------------------------------------------------
+# VS Code
+.vscode/
+# JetBrains (IntelliJ, PyCharm, etc.)
+.idea/
+# Sublime
+*.sublime-workspace
+*.sublime-project
+# Eclipse
+.project
+.classpath
+.settings/
+
+# ---------------------------------------------------------------------
+# OS Generated Files
+# ---------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+# Linux
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.rej
+
+# ---------------------------------------------------------------------
+# Logs & Misc
+# ---------------------------------------------------------------------
+*.log
+logs/
+*.out
+*.err
