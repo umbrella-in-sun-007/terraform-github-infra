@@ -112,19 +112,6 @@ This workflow automates synchronization between the personal and org repositorie
 * Push latest commits to org repo
 * Prevent reruns
 
-## Files Overview
-
-| File                                | Purpose                                          |
-| ----------------------------------- | ------------------------------------------------ |
-| `main.tf`                           | Root configuration calling the module            |
-| `variables.tf`                      | Input variables for org, repos, etc.             |
-| `outputs.tf`                        | Outputs details of created repos                 |
-| `modules/organization/main.tf`      | Module logic for repo creation                   |
-| `.github/workflows/sync-to-org.yml` | CI/CD automation file                            |
-| `Provider.md`                       | Notes for provider setup                         |
-| `Notes.md`                          | Local reference and notes                        |
-| `terraform.tfvars`                  | Default variable file storing GitHub credentials |
-
 ## Concepts Covered
 
 * **IaC (Infrastructure as Code)** using HCL
@@ -132,27 +119,11 @@ This workflow automates synchronization between the personal and org repositorie
 * **Provider Authentication** using PAT
 * **Automation** through CI/CD
 
-## Example Outputs
-
-```hcl
-Outputs:
-organization_name = "my-org"
-public_repo_url   = "https://github.com/my-org/public-repo"
-private_repo_url  = "https://github.com/my-username/private-repo"
-```
-
 ## Tools Used
 
 * Terraform (HashiCorp)
 * GitHub Provider
 * GitHub Actions
-
-## Future Plans
-
-* Add branch protection rules
-* Automate team creation and permissions
-* Manage secrets with Terraform
-* Extend sync to multiple child projects
 
 ## References
 
