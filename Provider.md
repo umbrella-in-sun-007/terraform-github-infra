@@ -1,1 +1,0 @@
-We will learn and use Terraform Github Provider to provision an organization which acts as an umbrella for all the future child projects.
