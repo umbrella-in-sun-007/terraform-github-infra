@@ -1,4 +1,4 @@
-name: Sync main branch to organization repo (private target)
+name: Sync main branch to organization repo (public or private target)
 
 on:
   push:
@@ -14,26 +14,30 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: |
+      - name: Remove GitHub Actions default token credentials
+        run: |
+          git config --global --unset-all http.https://github.com/.extraheader || true
+
+      - name: Configure Git identity
+        run: |
           git config --global user.name "neerajadhav"
           git config --global user.email "adhavneeraj9500@gmail.com"
 
       - name: Debug secret presence
         run: |
           if [ -z "${{ secrets.SYNC_TOKEN }}" ]; then
-            echo "❌ SYNC_TOKEN missing in repo 1!"
+            echo "❌ SYNC_TOKEN missing!"
             exit 1
           else
             echo "✅ SYNC_TOKEN loaded."
           fi
-          
+
       - name: Add organization repo as remote
         run: |
           set -e
           git remote remove target || true
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/umbrella-in-sun-007/terraform-github-infra.git
           git remote -v
-
 
       - name: Test token access
         run: |
