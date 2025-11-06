@@ -26,6 +26,7 @@ github-terraform/
 ├── outputs.tf                     # Root-level Terraform outputs
 ├── Provider.md                    # Provider documentation and setup notes
 ├── README.md                      # Project documentation
+├── terraform.tfvars               # Variable values for provider setup
 └── variables.tf                   # Input variable definitions
 ```
 
@@ -68,11 +69,13 @@ git clone https://github.com/<your-username>/github-terraform.git
 cd github-terraform
 ```
 
-**2. Set environment variables**
+**2. Set up terraform.tfvars**
+Create a file named `terraform.tfvars` in the root directory and define your variables:
 
-```bash
-export GITHUB_TOKEN=<your_pat>
-export GITHUB_OWNER=<your_github_username_or_org>
+```hcl
+# terraform.tfvars
+github_token = "ghp_yourtoken1234"
+github_owner = "neerajadhav"
 ```
 
 **3. Initialize Terraform**
@@ -111,15 +114,16 @@ This workflow automates synchronization between the personal and org repositorie
 
 ## Files Overview
 
-| File                                | Purpose                               |
-| ----------------------------------- | ------------------------------------- |
-| `main.tf`                           | Root configuration calling the module |
-| `variables.tf`                      | Input variables for org, repos, etc.  |
-| `outputs.tf`                        | Outputs details of created repos      |
-| `modules/organization/main.tf`      | Module logic for repo creation        |
-| `.github/workflows/sync-to-org.yml` | CI/CD automation file                 |
-| `Provider.md`                       | Notes for provider setup              |
-| `Notes.md`                          | Local reference and notes             |
+| File                                | Purpose                                          |
+| ----------------------------------- | ------------------------------------------------ |
+| `main.tf`                           | Root configuration calling the module            |
+| `variables.tf`                      | Input variables for org, repos, etc.             |
+| `outputs.tf`                        | Outputs details of created repos                 |
+| `modules/organization/main.tf`      | Module logic for repo creation                   |
+| `.github/workflows/sync-to-org.yml` | CI/CD automation file                            |
+| `Provider.md`                       | Notes for provider setup                         |
+| `Notes.md`                          | Local reference and notes                        |
+| `terraform.tfvars`                  | Default variable file storing GitHub credentials |
 
 ## Concepts Covered
 
