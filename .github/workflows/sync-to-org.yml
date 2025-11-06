@@ -21,7 +21,7 @@ jobs:
       - name: Configure Git identity
         run: |
           git config --global user.name "neerajadhav"
-          git config --global user.email "adhavneeraj9500@gmail.com"
+          git config --global user.email "32135561+neerajadhav@users.noreply.github.com"
 
       # Step 3: add repo2 (org private repo) as a remote using the PAT from secrets
       - name: Add organization repo as remote
