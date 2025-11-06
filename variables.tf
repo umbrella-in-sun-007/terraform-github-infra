@@ -12,7 +12,7 @@ variable "github_owner" {
 variable "repo_name" {
   description = "Name of the repo to create"
   type        = string
-  default     = "terraform-github-infra"
+  default     = "terraform-docker-infra"
 }
 
 variable "repo_private" {

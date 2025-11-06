@@ -1,4 +1,4 @@
-# Terraform GitHub Provider — Organization Provisioning
+# Automated GitHub Organization Infrastructure using Terraform
 
 Terraform provisions GitHub infrastructure using the **GitHub Provider**. We use HCL (Hashicorp Configuration Language) to define repositories, organization settings, and CI/CD automation.
 
