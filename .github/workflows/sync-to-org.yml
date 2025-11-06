@@ -3,28 +3,44 @@ name: Sync main branch to organization repo (private target)
 on:
   push:
     branches:
-      - main  # Trigger only when main branch is updated
+      - main  # Trigger only when commits are pushed to 'main' in repo1
 
 jobs:
   sync:
+    name: Push changes to organization repo
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source repo (repo1)
+      # Step 1: checkout repo1 at the commit that triggered this workflow
+      - name: Checkout source repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # fetch all history for push
+          fetch-depth: 0  # get full history so pushes work cleanly
 
+      # Step 2: set a recognizable committer identity
       - name: Configure Git identity
         run: |
           git config --global user.name "neerajadhav"
           git config --global user.email "adhavneeraj9500@gmail.com"
 
-      - name: Add organization repo (repo2) as remote
+      # Step 3: add repo2 (org private repo) as a remote using the PAT from secrets
+      - name: Add organization repo as remote
         run: |
+          set -e
+          git remote remove target || true
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/umbrella-in-sun-007/terraform-github-infra.git
+          git remote -v
 
+      # Step 4: verify connectivity/permissions to repo2
+      - name: Verify access to target repo
+        run: |
+          set -e
+          # This will succeed if token has access; if first run and no main exists, this is fine.
+          git ls-remote target || true
+          git fetch target main || echo "Target main not present yet (first sync)."
 
+      # Step 5: push repo1's main to repo2's main
       - name: Push main branch to organization repo
         run: |
+          set -e
           git push target main --force
