@@ -1,4 +1,4 @@
-name: Sync main branch to organization repo (public or private target)
+name: Sync main branch to organization repo
 
 on:
   push:
@@ -10,20 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Remove GitHub Actions default token credentials
+      # Clear all auth data inserted by actions/checkout
+      - name: Reset git credentials
         run: |
+          git config --system --unset-all http.https://github.com/.extraheader || true
           git config --global --unset-all http.https://github.com/.extraheader || true
+          git config --local --unset-all http.https://github.com/.extraheader || true
+          git config --unset credential.helper || true
+          rm -f ~/.git-credentials || true
+          echo "✅ Cleared default GitHub Actions credentials"
 
       - name: Configure Git identity
         run: |
           git config --global user.name "neerajadhav"
           git config --global user.email "adhavneeraj9500@gmail.com"
 
-      - name: Debug secret presence
+      - name: Verify personal token presence
         run: |
           if [ -z "${{ secrets.SYNC_TOKEN }}" ]; then
             echo "❌ SYNC_TOKEN missing!"
@@ -32,19 +39,19 @@ jobs:
             echo "✅ SYNC_TOKEN loaded."
           fi
 
-      - name: Add organization repo as remote
+      - name: Add organization repo as remote using personal token
         run: |
-          set -e
           git remote remove target || true
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/umbrella-in-sun-007/terraform-github-infra.git
           git remote -v
 
-      - name: Test token access
+      - name: Test access with personal token
         run: |
           set -e
-          git ls-remote target || (echo "❌  Token cannot access repo2" && exit 1)
+          git ls-remote target || (echo "❌ Token cannot access repo2" && exit 1)
 
-      - name: Push main
+      - name: Push main branch to organization repo
         run: |
           set -e
+          echo "✅ Pushing main branch using personal token..."
           git push target main --force
