@@ -7,7 +7,7 @@ on:
 
 jobs:
   sync:
-    if: ${{ !contains(github.event.head_commit.message, '[skip-sync] - updated') }}
+    if: ${{ !contains(github.event.head_commit.message, '[skip-sync]') }}
     runs-on: ubuntu-latest
 
     steps:
