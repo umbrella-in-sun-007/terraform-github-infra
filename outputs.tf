@@ -43,11 +43,6 @@ output "personal_workflow_file" {
   value       = github_repository_file.personal_workflow.file
 }
 
-output "organization_workflow_file" {
-  description = "Organization repository workflow file path"
-  value       = github_repository_file.organization_workflow.file
-}
-
 output "sync_token_secret" {
   description = "GitHub Actions secret name for sync token"
   value       = github_actions_secret.sync_token.secret_name

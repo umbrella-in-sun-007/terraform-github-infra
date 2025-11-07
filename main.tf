@@ -78,26 +78,6 @@ resource "github_repository_file" "personal_workflow" {
   overwrite_on_create = true
 }
 
-# GitHub workflow file for organization repository
-resource "github_repository_file" "organization_workflow" {
-  provider   = github.organization
-  depends_on = [github_repository.organization_repo]
-
-  repository = github_repository.organization_repo.name
-  branch     = "main"
-  file       = ".github/workflows/sync-to-org.yml"
-  content = templatefile("${path.module}/.github/workflows/sync-to-org.yml.tpl", {
-    personal_username = var.personal_github_username
-    personal_email    = var.personal_github_email
-    organization_name = var.organization_name
-    organization_repo = var.organization_repo_name
-  })
-  commit_message      = "Add GitHub workflow for syncing to organization repo"
-  commit_author       = var.personal_github_username
-  commit_email        = var.personal_github_email
-  overwrite_on_create = true
-}
-
 # GitHub Actions secret for personal repository
 resource "github_actions_secret" "sync_token" {
   provider = github.personal
