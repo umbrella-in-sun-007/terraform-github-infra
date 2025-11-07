@@ -1,3 +1,12 @@
 # terraform.tfvars
 github_token = "ghp_yourtoken1234"
-github_owner = "neerajadhav"
+personal_github_username = "your-username"
+personal_github_email = "your-email@example.com"
+organization_name = "your-organization"
+
+# Repository names (optional - will use defaults if not specified)
+personal_repo_name = "my-personal-repo"
+personal_repo_description = "My personal repository created with Terraform"
+
+organization_repo_name = "my-org-repo"
+organization_repo_description = "Organization repository created with Terraform"
